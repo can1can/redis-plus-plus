@@ -1,4 +1,4 @@
-project(redis++)
+    project(redis++)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     cmake_minimum_required(VERSION 3.0.0)
@@ -6,7 +6,7 @@ else()
     cmake_minimum_required(VERSION 2.8.0)
 endif()
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -W -Werror -fPIC")
+#set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -W -Werror -fPIC")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
@@ -33,10 +33,6 @@ set_target_properties(${SHARED_LIB} PROPERTIES OUTPUT_NAME ${PROJECT_NAME})
 
 set_target_properties(${STATIC_LIB} PROPERTIES CLEAN_DIRECT_OUTPUT 1)
 set_target_properties(${SHARED_LIB} PROPERTIES CLEAN_DIRECT_OUTPUT 1)
-
-add_subdirectory(test)
-
-# Install static lib.
 install(TARGETS ${STATIC_LIB}
         ARCHIVE DESTINATION lib)
 

@@ -16,19 +16,11 @@ set(SHARED_LIB shared)
 #add_library(${STATIC_LIB} STATIC ${PROJECT_SOURCE_FILES})
 add_library(${SHARED_LIB} SHARED ${PROJECT_SOURCE_FILES})
 
-include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
-ExternalProject_Add( hiredis GIT_REPOSITORY "https://github.com/redis/hiredis.git"
-        GIT_TAG "master"
-        UPDATE_COMMAND ""
-        PATCH_COMMAND ""
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=/tmp/3rdparty/stage
-        TEST_COMMAND "" )
-
 set(HIREDIS /tmp/3rdparty/stage/lib)
 #target_include_directories(${STATIC_LIB} PUBLIC HIREDIS)
 target_include_directories(${SHARED_LIB} PUBLIC HIREDIS)
 
-set(HIREDIS_LIB /tmp/3rdparty/stage/lib/libhiredis.so)
+set(HIREDIS_LIB hiredis)
 target_link_libraries(${SHARED_LIB} ${HIREDIS_LIB})
 
 #set_target_properties(${STATIC_LIB} PROPERTIES OUTPUT_NAME ${PROJECT_NAME})

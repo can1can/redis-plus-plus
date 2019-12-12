@@ -15,7 +15,12 @@ set(SHARED_LIB shared)
 
 #add_library(${STATIC_LIB} STATIC ${PROJECT_SOURCE_FILES})
 add_library(${SHARED_LIB} SHARED ${PROJECT_SOURCE_FILES})
-
+ExternalProject_Add(redis-plus-plus GIT_REPOSITORY "https://github.com/redis/hiredis"
+        GIT_TAG "master"
+        UPDATE_COMMAND ""
+        PATCH_COMMAND ""
+        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=/tmp/3rdparty/stage
+        TEST_COMMAND "" )
 set(HIREDIS /tmp/3rdparty/stage/lib)
 #target_include_directories(${STATIC_LIB} PUBLIC HIREDIS)
 target_include_directories(${SHARED_LIB} PUBLIC HIREDIS)

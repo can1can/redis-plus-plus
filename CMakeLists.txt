@@ -1,6 +1,6 @@
 project(redis++)
 
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.0)
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -W -Werror -fPIC")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

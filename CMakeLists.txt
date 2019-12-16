@@ -1,8 +1,17 @@
 project(redis++)
 
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.0)
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -W -Werror -fPIC")
 
+include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
+ExternalProject_Add( hiredis GIT_REPOSITORY "https://github.com/redis/hiredis.git"
+        GIT_TAG "master"
+        UPDATE_COMMAND ""
+        PATCH_COMMAND ""
+        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=/tmp/3rdparty/stage
+        TEST_COMMAND "" )
+
+set(HIREDIS /tmp/3rdparty/stage/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_CXX_STANDARD 11)
 
@@ -16,15 +25,6 @@ set(SHARED_LIB shared)
 add_library(${STATIC_LIB} STATIC ${PROJECT_SOURCE_FILES})
 add_library(${SHARED_LIB} SHARED ${PROJECT_SOURCE_FILES})
 
-include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
-ExternalProject_Add( hiredis GIT_REPOSITORY "https://github.com/redis/hiredis.git"
-        GIT_TAG "master"
-        UPDATE_COMMAND ""
-        PATCH_COMMAND ""
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=/tmp/3rdparty/stage
-        TEST_COMMAND "" )
-
-set(HIREDIS /tmp/3rdparty/stage/lib)
 target_include_directories(${STATIC_LIB} PUBLIC HIREDIS)
 target_include_directories(${SHARED_LIB} PUBLIC HIREDIS)
 
